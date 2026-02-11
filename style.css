@@ -1,0 +1,22 @@
+.card-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+  gap: 5rem;
+  padding: 1rem;
+}
+
+.card-container > div {
+  display: grid;
+  background-color: yellow;
+  justify-content: center;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+}
+
+h1 {
+  display: flex;
+  justify-content: center;
+}
