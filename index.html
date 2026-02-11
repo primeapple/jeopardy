@@ -34,14 +34,14 @@
   </header>
 
   <main>
-    <h1>Let's play a game!</h1>
+    <h1>Let's play a game of Jeopardy!</h1>
     <div class="card-container" role="grid">
       <div class="card category" role="columnheader">Sport</div>
       <div class="card category" role="columnheader">Kultur</div>
       <div class="card category" role="columnheader">Geschichte</div>
       <div class="card category" role="columnheader">Politik</div>
       <div class="card category" role="columnheader">Aktion</div>
-      <button class="card choice" aria-label="Sport for 100 points">100</button>
+      <button class="card choice" aria-label="Sport for 100 points" id="card-sport-100">100</button>
       <button class="card choice" aria-label="Kultur for 100 points">100</button>
       <button class="card choice" aria-label="Geschichte for 100 points">100</button>
       <button class="card choice" aria-label="Politik for 100 points">100</button>
@@ -69,12 +69,16 @@
     </div>
   </main>
 
+  <dialog id="question-dialog">
+    <p class="dialog-question">Which German football club has won the most Bundesliga titles?</p>
+  </dialog>
+
   <footer class="footer">
     <p>&copy; 2026 primeapple/jeopardy. All rights reserved.</p>
   </footer>
 
   <!-- Scripts at the end for better performance -->
-  <!-- <script src="./index.js"></script> -->
+  <script src="./index.js"></script>
 </body>
 
 </html>
