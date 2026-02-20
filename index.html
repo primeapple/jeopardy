@@ -35,43 +35,8 @@
 
   <main>
     <h1>Let's play a game of Jeopardy!</h1>
-    <div class="card-container" role="grid">
-      <div class="card category" role="columnheader">Sport</div>
-      <div class="card category" role="columnheader">Kultur</div>
-      <div class="card category" role="columnheader">Geschichte</div>
-      <div class="card category" role="columnheader">Politik</div>
-      <div class="card category" role="columnheader">Aktion</div>
-      <button class="card choice" aria-label="Sport for 100 points" id="card-sport-100">100</button>
-      <button class="card choice" aria-label="Kultur for 100 points">100</button>
-      <button class="card choice" aria-label="Geschichte for 100 points">100</button>
-      <button class="card choice" aria-label="Politik for 100 points">100</button>
-      <button class="card choice" aria-label="Aktion for 100 points">100</button>
-      <button class="card choice" aria-label="Sport for 200 points">200</button>
-      <button class="card choice" aria-label="Kultur for 200 points">200</button>
-      <button class="card choice" aria-label="Geschichte for 200 points">200</button>
-      <button class="card choice" aria-label="Politik for 200 points">200</button>
-      <button class="card choice" aria-label="Aktion for 200 points">200</button>
-      <button class="card choice" aria-label="Sport for 300 points">300</button>
-      <button class="card choice" aria-label="Kultur for 300 points">300</button>
-      <button class="card choice" aria-label="Geschichte for 300 points">300</button>
-      <button class="card choice" aria-label="Politik for 300 points">300</button>
-      <button class="card choice" aria-label="Aktion for 300 points">300</button>
-      <button class="card choice" aria-label="Sport for 400 points">400</button>
-      <button class="card choice" aria-label="Kultur for 400 points">400</button>
-      <button class="card choice" aria-label="Geschichte for 400 points">400</button>
-      <button class="card choice" aria-label="Politik for 400 points">400</button>
-      <button class="card choice" aria-label="Aktion for 400 points">400</button>
-      <button class="card choice" aria-label="Sport for 500 points">500</button>
-      <button class="card choice" aria-label="Kultur for 500 points">500</button>
-      <button class="card choice" aria-label="Geschichte for 500 points">500</button>
-      <button class="card choice" aria-label="Politik for 500 points">500</button>
-      <button class="card choice" aria-label="Aktion for 500 points">500</button>
-    </div>
+    <jeopardy-cards points=100 question="Who is the greates" answer="me"></jeopardy-cards>
   </main>
-
-  <dialog id="question-dialog">
-    <p class="dialog-question">Which German football club has won the most Bundesliga titles?</p>
-  </dialog>
 
   <footer class="footer">
     <p>&copy; 2026 primeapple/jeopardy. All rights reserved.</p>
@@ -79,6 +44,7 @@
 
   <!-- Scripts at the end for better performance -->
   <script src="./index.js"></script>
+  <script src="./jeopardy-cards.component.js"></script>
 </body>
 
 </html>
