@@ -164,22 +164,40 @@ const QUESTIONS = [
 
 class JeopardyCards extends HTMLElement {
   static get observedAttributes() {
-    return ["answer", "points", "question"];
+    return ["answer"];
   }
 
   /** @type {string[]} */
   #categories = [];
   /** @type {Question[]} */
   #questions = [];
+  /** @type {Question | null} */
+  #activeQuestion = null;
 
-  get points() {
-    return parseInt(this.getAttribute("points") ?? "0", 10);
-  }
-  get question() {
-    return this.getAttribute("question") ?? "";
-  }
   get answer() {
     return this.getAttribute("answer") ?? "";
+  }
+
+  /** @returns {HTMLDialogElement} */
+  get #dialog() {
+    const dialog = this.shadowRoot?.getElementById("question-dialog");
+    if (!(dialog instanceof HTMLDialogElement)) {
+      throw Error('dialog "question-dialog" was not found');
+    }
+    return dialog;
+  }
+
+  /** @returns {HTMLElement} */
+  get #activeCard() {
+    if (!this.#activeQuestion) {
+      throw Error("no active question set");
+    }
+    const cardId = `card-${this.#activeQuestion.category}-${this.#activeQuestion.points}`;
+    const card = this.shadowRoot?.getElementById(cardId);
+    if (!card) {
+      throw Error(`card "${cardId}" was not found`);
+    }
+    return card;
   }
 
   constructor() {
@@ -206,12 +224,6 @@ class JeopardyCards extends HTMLElement {
   }
 
   connectedCallback() {
-    this.addEventListener("click", () => {
-      console.log("points", this.points);
-      console.log("question", this.question);
-      console.log("answer", this.answer);
-    });
-
     const container = this.shadowRoot?.getElementById("card-container");
     if (!container) {
       throw Error("container was not found");
@@ -231,30 +243,48 @@ class JeopardyCards extends HTMLElement {
       button.onclick = () => this.#onClickCard(q);
       container.insertAdjacentElement("beforeend", button);
     }
+
+    // Setting up the backdrop click
+    this.#dialog.addEventListener("click", (event) => {
+      if (event.target !== this.#dialog) {
+        return;
+      }
+      this.#closeDialog();
+    });
   }
 
   /** @param {Question} question */
   #onClickCard(question) {
-    const cardId = `card-${question.category}-${question.points}`;
-    const card = this.shadowRoot?.getElementById(cardId);
-    if (!card) {
-      throw Error(`card "${cardId}" was not found`);
-    }
+    this.#activeQuestion = question;
 
-    const dialog = this.shadowRoot?.getElementById("question-dialog");
-    if (!(dialog instanceof HTMLDialogElement)) {
-      throw Error(`dialog "question-dialog" was not found`);
-    }
+    const allCards = this.shadowRoot?.querySelectorAll(".card.choice");
+    allCards?.forEach((c) => {
+      if (c !== this.#activeCard) {
+        c.classList.add("disabled");
+      }
+    });
 
-    card.classList.add("spinning");
-    setTimeout(() => {
-      dialog.showModal();
-      dialog.insertAdjacentHTML(
-        "beforeend",
-        `<p class="dialog-question">${question.question}</p>`,
-      );
-      card.classList.remove("spinning");
-    }, 3000); // Match animation duration
+    this.#activeCard.classList.add("spinning");
+    this.#activeCard.addEventListener(
+      "animationend",
+      () => {
+        this.#dialog.insertAdjacentHTML(
+          "beforeend",
+          `<p class="dialog-question">${question.question}</p>`,
+        );
+        this.#dialog.showModal();
+        this.#activeCard.classList.remove("spinning");
+        this.#activeCard.classList.add("resolved");
+        allCards?.forEach((c) => c.classList.remove("disabled"));
+      },
+      { once: true },
+    );
+  }
+
+  #closeDialog() {
+    this.#dialog.close();
+    this.#dialog.replaceChildren();
+    this.#activeQuestion = null;
   }
 }
 
