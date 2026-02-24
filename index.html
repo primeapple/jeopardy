@@ -35,7 +35,23 @@
 
   <main>
     <h1>Let's play a game of Jeopardy!</h1>
-    <jeopardy-cards points=100 question="Who is the greates" answer="me"></jeopardy-cards>
+
+    <section id="upload-section" class="upload-section">
+      <h2>Upload Your Questions</h2>
+      <p class="upload-instructions">
+        Upload a CSV file with your questions. Format: <code>points;category;question;answer</code>
+      </p>
+      <div class="upload-controls">
+        <label for="csv-upload" class="button">
+          Choose CSV File
+          <input type="file" id="csv-upload" accept=".csv" />
+        </label>
+        <a href="https://raw.githubusercontent.com/primeapple/jeopardy/refs/heads/main/sample-questions.csv" download class="button">Download Sample CSV</a>
+      </div>
+      <p id="upload-error" class="upload-error" hidden></p>
+    </section>
+
+    <jeopardy-cards id="jeopardy-game" hidden></jeopardy-cards>
   </main>
 
   <footer class="footer">
@@ -44,6 +60,7 @@
 
   <!-- Scripts at the end for better performance -->
   <script src="./jeopardy-cards.component.js"></script>
+  <script src="./index.js"></script>
 </body>
 
 </html>
