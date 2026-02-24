@@ -81,16 +81,10 @@
 }
 
 dialog {
-  border: none;
-  border-radius: 1rem;
-  padding: 2rem;
-  background-color: #1a1a2e;
-  color: white;
   max-width: 1200px;
   width: 80%;
-  font-size: 7rem;
-  line-height: 1.6;
-  text-align: center;
+  background-color: transparent;
+  border: none
 }
 
 dialog::backdrop {
@@ -99,13 +93,19 @@ dialog::backdrop {
 }
 
 .flip-card {
-  display: grid;
-  width: 100%;
-  min-height: 300px;
-  text-align: center;
-  transition: transform 0.8s;
-  transform-style: preserve-3d;
+  background-color: #1a1a2e;
+  border-radius: 1rem;
+  color: white;
   cursor: pointer;
+  display: grid;
+  font-size: 7rem;
+  line-height: 1.6;
+  min-height: 300px;
+  padding: 2rem;
+  text-align: center;
+  transform-style: preserve-3d;
+  transition: transform 0.8s;
+  width: 100%;
 }
 
 .flip-card.flipped {
