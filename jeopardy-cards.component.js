@@ -13,152 +13,152 @@ const QUESTIONS = [
   {
     category: "sport",
     points: 100,
-    question: "Who is the greatest?",
-    answer: "me",
+    question: "In welcher Sportart wird der Stanley Cup vergeben?",
+    answer: "Eishockey",
   },
   {
     category: "sport",
     points: 200,
-    question: "Who is the greatest?",
-    answer: "me",
+    question: "Wie viele Spieler hat eine Fußballmannschaft auf dem Feld?",
+    answer: "11",
   },
   {
     category: "sport",
     points: 300,
-    question: "Who is the greatest?",
-    answer: "me",
+    question: "Welches Land gewann die Fußball-WM 2014?",
+    answer: "Deutschland",
   },
   {
     category: "sport",
     points: 400,
-    question: "Who is the greatest?",
-    answer: "me",
+    question: "Wie heißt der schnellste Mann der Welt (100m Rekord)?",
+    answer: "Usain Bolt",
   },
   {
     category: "sport",
     points: 500,
-    question: "Who is the greatest?",
-    answer: "me",
+    question: "In welcher Stadt fanden die Olympischen Spiele 1972 statt?",
+    answer: "München",
   },
   {
     category: "kultur",
     points: 100,
-    question: "Who is the greatest?",
-    answer: "me",
+    question: "Wer malte die Mona Lisa?",
+    answer: "Leonardo da Vinci",
   },
   {
     category: "kultur",
     points: 200,
-    question: "Who is the greatest?",
-    answer: "me",
+    question: "In welcher Stadt steht das Brandenburger Tor?",
+    answer: "Berlin",
   },
   {
     category: "kultur",
     points: 300,
-    question: "Who is the greatest?",
-    answer: "me",
+    question: "Wer schrieb 'Die Verwandlung'?",
+    answer: "Franz Kafka",
   },
   {
     category: "kultur",
     points: 400,
-    question: "Who is the greatest?",
-    answer: "me",
+    question: "Welcher Komponist wurde in Salzburg geboren?",
+    answer: "Wolfgang Amadeus Mozart",
   },
   {
     category: "kultur",
     points: 500,
-    question: "Who is the greatest?",
-    answer: "me",
+    question: "Wer schrieb 'Faust'?",
+    answer: "Johann Wolfgang von Goethe",
   },
   {
     category: "geschichte",
     points: 100,
-    question: "Who is the greatest?",
-    answer: "me",
+    question: "In welchem Jahr fiel die Berliner Mauer?",
+    answer: "1989",
   },
   {
     category: "geschichte",
     points: 200,
-    question: "Who is the greatest?",
-    answer: "me",
+    question: "Wer war der erste Bundeskanzler Deutschlands?",
+    answer: "Konrad Adenauer",
   },
   {
     category: "geschichte",
     points: 300,
-    question: "Who is the greatest?",
-    answer: "me",
+    question: "In welchem Jahr endete der Zweite Weltkrieg?",
+    answer: "1945",
   },
   {
     category: "geschichte",
     points: 400,
-    question: "Who is the greatest?",
-    answer: "me",
+    question: "Welches Reich wurde 1871 gegründet?",
+    answer: "Das Deutsche Kaiserreich",
   },
   {
     category: "geschichte",
     points: 500,
-    question: "Who is the greatest?",
-    answer: "me",
+    question: "Wer führte die Reformation an?",
+    answer: "Martin Luther",
   },
   {
     category: "politik",
     points: 100,
-    question: "Who is the greatest?",
-    answer: "me",
+    question: "Wie viele Bundesländer hat Deutschland?",
+    answer: "16",
   },
   {
     category: "politik",
     points: 200,
-    question: "Who is the greatest?",
-    answer: "me",
+    question: "Welche Farben hat die deutsche Flagge?",
+    answer: "Schwarz, Rot, Gold",
   },
   {
     category: "politik",
     points: 300,
-    question: "Who is the greatest?",
-    answer: "me",
+    question: "In welcher Stadt tagt der Deutsche Bundestag?",
+    answer: "Berlin",
   },
   {
     category: "politik",
     points: 400,
-    question: "Who is the greatest?",
-    answer: "me",
+    question: "Wie heißt das deutsche Grundgesetz auf Englisch?",
+    answer: "Basic Law",
   },
   {
     category: "politik",
     points: 500,
-    question: "Who is the greatest?",
-    answer: "me",
+    question: "Welches Organ wählt den Bundeskanzler?",
+    answer: "Der Bundestag",
   },
   {
     category: "aktion",
     points: 100,
-    question: "Who is the greatest?",
-    answer: "me",
+    question: "Mache 5 Kniebeugen!",
+    answer: "Gut gemacht!",
   },
   {
     category: "aktion",
     points: 200,
-    question: "Who is the greatest?",
-    answer: "me",
+    question: "Singe den Refrain deines Lieblingslieds!",
+    answer: "Bravo!",
   },
   {
     category: "aktion",
     points: 300,
-    question: "Who is the greatest?",
-    answer: "me",
+    question: "Erzähle einen Witz!",
+    answer: "Hoffentlich war er lustig!",
   },
   {
     category: "aktion",
     points: 400,
-    question: "Who is the greatest?",
-    answer: "me",
+    question: "Imitiere ein Tier deiner Wahl!",
+    answer: "Fantastisch!",
   },
   {
     category: "aktion",
     points: 500,
-    question: "Who is the greatest?",
-    answer: "me",
+    question: "Tanze 10 Sekunden lang!",
+    answer: "Super Moves!",
   },
 ];
 
@@ -270,12 +270,27 @@ class JeopardyCards extends HTMLElement {
       () => {
         this.#dialog.insertAdjacentHTML(
           "beforeend",
-          `<p class="dialog-question">${question.question}</p>`,
+          `
+          <div class="flip-card">
+            <div class="flip-card-front">
+              ${question.question}
+            </div>
+            <div class="flip-card-back">
+              ${question.answer}
+            </div>
+          </div>
+          `,
         );
+        const flipCard = this.#dialog.querySelector(".flip-card");
+        flipCard?.addEventListener("click", () => {
+          flipCard.classList.toggle("flipped");
+        });
         this.#dialog.showModal();
         this.#activeCard.classList.remove("spinning");
         this.#activeCard.classList.add("resolved");
-        allCards?.forEach((c) => c.classList.remove("disabled"));
+        allCards?.forEach((c) => {
+          c.classList.remove("disabled")
+        });
       },
       { once: true },
     );

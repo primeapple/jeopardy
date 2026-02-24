@@ -88,6 +88,9 @@ dialog {
   color: white;
   max-width: 1200px;
   width: 80%;
+  font-size: 7rem;
+  line-height: 1.6;
+  text-align: center;
 }
 
 dialog::backdrop {
@@ -95,8 +98,30 @@ dialog::backdrop {
   backdrop-filter: blur(4px);
 }
 
-.dialog-question {
-  font-size: 5rem;
-  line-height: 1.6;
+.flip-card {
+  display: grid;
+  width: 100%;
+  min-height: 300px;
   text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.flip-card.flipped {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  grid-area: 1 / 1;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  background-color: #1a1a2e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
 }
