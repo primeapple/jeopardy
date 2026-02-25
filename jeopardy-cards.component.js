@@ -89,7 +89,7 @@ class JeopardyCards extends HTMLElement {
 
     container.replaceChildren();
 
-    container.style.gridTemplateColumns = `repeat(${this.#categories.length}, 1fr)`;
+    container.style.gridTemplateColumns = `repeat(${this.#categories.length}, minmax(0, 1fr))`;
 
     for (const category of this.#categories) {
       container.insertAdjacentHTML(
