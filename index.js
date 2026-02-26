@@ -168,11 +168,9 @@ csvUpload?.addEventListener("change", (event) => {
       return;
     }
 
-    if (jeopardyGame instanceof JeopardyCards) {
-      jeopardyGame.setQuestions(questions);
-      uploadSection?.toggleAttribute("hidden")
-      jeopardyGame.hidden = false;
-    }
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set("questions", btoa(JSON.stringify(questions)));
+    window.location.search = urlParams.toString();
   };
 
   reader.onerror = () => {
@@ -181,3 +179,24 @@ csvUpload?.addEventListener("change", (event) => {
 
   reader.readAsText(file);
 });
+
+function setQuestionsFromUrl() {
+  const params = new URL(document.location.toString()).searchParams;
+  const questionsStr = params.get("questions");
+  if (!questionsStr) {
+    return;
+  }
+
+  try {
+    const questions = JSON.parse(atob(questionsStr));
+    if (jeopardyGame instanceof JeopardyCards) {
+      jeopardyGame.setQuestions(questions);
+      uploadSection?.toggleAttribute("hidden");
+      jeopardyGame.hidden = false;
+    }
+  } catch {
+    return;
+  }
+}
+
+setQuestionsFromUrl();
